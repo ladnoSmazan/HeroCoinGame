@@ -7,7 +7,8 @@ import {
 } from "react";
 import backgroundAsset from "../../../assets/space-stars.jpg";
 import heroAsset from "../../../assets/hero.png";
-import coinAsset from "../../../assets/coin-gold.png";
+import coinAssetGold from "../../../assets/coin-gold.png";
+import coinAssetRed from "../../../assets/coin-red.png";
 import { extend } from "@pixi/react";
 import { Level } from "../../Levels/Level.tsx";
 import { Hero } from "../../Hero/Hero.tsx";
@@ -29,9 +30,11 @@ export const MainContainer = ({
   const [assets, setAssets] = useState<Record<string, Texture>>({});
 
   useEffect(() => {
-    Assets.load([backgroundAsset, heroAsset, coinAsset]).then((assets) => {
-      setAssets(assets);
-    });
+    Assets.load([backgroundAsset, heroAsset, coinAssetGold, coinAssetRed]).then(
+      (assets) => {
+        setAssets(assets);
+      },
+    );
   }, []);
 
   const updateHeroPosition = useCallback((x: number, y: number) => {
@@ -52,9 +55,14 @@ export const MainContainer = ({
       <Camera heroPosition={heroPosition} canvasSize={canvasSize}>
         <Level></Level>
         <Hero texture={assets[heroAsset]} onMove={updateHeroPosition}></Hero>
-        <Coin texture={assets[coinAsset]} x={5} y={10}></Coin>
-        <Coin texture={assets[coinAsset]} x={7} y={11}></Coin>
+        <Coin texture={assets[coinAssetGold]} x={5} y={10}></Coin>
+        <Coin texture={assets[coinAssetGold]} x={7} y={11}></Coin>
+        <Coin texture={assets[coinAssetGold]} x={9} y={20}></Coin>
       </Camera>
+      {/* interface */}
+      <Coin texture={assets[coinAssetRed]} x={2} y={1}></Coin>
+      <Coin texture={assets[coinAssetRed]} x={3} y={1}></Coin>
+      <Coin texture={assets[coinAssetRed]} x={4} y={1}></Coin>
     </pixiContainer>
   );
 };
